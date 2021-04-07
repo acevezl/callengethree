@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Password Generator</h1>
+      </header>
+      <div class="card">
+        <div class="card-header">
+          <h2>Generate a Password</h2>
+        </div>
+        <div class="card-body" id="passwordParameters">
+          <div>
+            <label for="passwordLength">Password Length (8 to 128 characters)</label>
+            <input type="number" id="passwordLength" name="passwordLength" min="0" max="128">
+          </div>
+          <div>
+            <input type="checkbox" id="numericCharacters" name="numericCharacters">
+            <label for="numericCharacters">Include numbers? (0 - 9)</label>
+          </div>
+          <div>
+            <input type="checkbox" id="uppercaseCharacters" name="uppercaseCharacters">
+            <label for="uppercaseCharacters">Include uppercase letters? (A - Z)</label>
+          </div>
+          <div>
+            <input type="checkbox" id="specialCharacters" name="specialCharacters">
+            <label for="specialCharacters">Include Special Characters? (&excl; &quot; # $ % &amp; * + - ? ^ _ |)</label>
+          </div>
+        </div>
+        <div class="card-body" id="generatedPassword">
+          <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
+        </div>
+        <div class="card-footer">
+          <button id="generate" class="btn">Generate Password</button>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
