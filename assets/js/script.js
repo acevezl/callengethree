@@ -16,41 +16,53 @@ function validateSize() {
 function generatePassword() {
   var password = "";
   if (validateSize()) {
-
+    // User selected a valid number to create a password
+    // Get the additional types of characters to include
     var includeNumbers = document.getElementById("numericCharacters").checked;
     var includeUppercase = document.getElementById("uppercaseCharacters").checked;
     var includeSpecial = document.getElementById("specialCharacters").checked;
+
+    // Create strings with all the possible characters, we'll use the as arrays to pick characters randomly from them
     var passwordCharacters = "abcdefghijklmnopqrstuvwxyz";
     var uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var numericCharacters = "0123456789";
     var specialCharacters = "!\"#$%&*+-?^_|";
 
-    // We first add uppercase letters, if selected, so that we can pick a random character that is always a letter
+    // If user selected upper case characters, add them to the pool of password characters
+    // I'm doing upper characters first on purpose, so that we can randomly select a letter for the first password character
     if (includeUppercase) {
       passwordCharacters = passwordCharacters + uppercaseCharacters;
     }
-    // Choose a first character that is a letter (lower or upper case)
+
+    // Choose a first character that is always letter (lower or upper case)
+    // I'm doing this so that the password always starts with a letter, as some systems don't accept numbers or special characters as the first letter for a password
     var availableCharacters = passwordCharacters.length;
     password = passwordCharacters[Math.floor(Math.random()*availableCharacters)];
 
+    // If user selected numbers, add numbers to the pool of password characters
     if (includeNumbers) {
       passwordCharacters = passwordCharacters + numericCharacters;
     }
     
+    // if user selected special characters, add them to the pool of password characters
     if (includeSpecial) {
       passwordCharacters = passwordCharacters + specialCharacters;
     }
-    // Refresh availableCharacters in case numbers and special characters were selected
+
+    // Refresh the number availableCharacters in case numbers and special characters were added to the pool
     availableCharacters = passwordCharacters.length;
     
+    // Randomly select a character from the pool for every position of the password string
+    // I'm starting at position 1 on purpose, because position zero already contains a character (which is a letter)
     for (var i=1; i<passwordSize; i++) {
       password = password + passwordCharacters[Math.floor(Math.random()*availableCharacters)];
     }
     
-    // At this point the password may or may not include Upper Case characters, Numbers, and Special characters
-    // The following code is necessary to add at least one special, number, or upper case character (if any of those were selected)
-    // This will allow the password to always have at least one of the types of characters selected by the user
+    // At this point the password ** may ** or ** may not ** include Upper Case characters, Numbers, and Special characters
+    // Since we can't guarantee that the code above randomly selected a upper, number or special (if any of those were selected)
+    // the following code is necessary to insert at least one character of each of the selected types
     
+    // These vars are needed to remember where the number and/or special characters were added and not overwrite them
     var randomNumberPosition = 0;
     var randomSpecialPosition = 0;
     
@@ -66,9 +78,9 @@ function generatePassword() {
     if (includeSpecial) {
       // Start with the same position where we placed the number (or zero, if user didn't ask for a number)
       var randomPosition = randomNumberPosition;
-      // Ensure we don't pick the same position where we placed a number (or zero, if user didn't ask for a number)
+      // Ensure we don't pick the same position where we placed a number
       while (randomPosition === randomNumberPosition) {
-        randomPosition = Math.floor(Math.random() * (passwordSize - 1)) + 1;
+        randomPosition = Math.floor(Math.random() * (passwordSize - 1)) + 1; // The + 1 ensures the first letter is never overwritten
       } 
       password = password.slice(0,randomPosition) + specialCharacters[Math.floor(Math.random()*specialCharacters.length)] + password.slice(randomPosition+1,password.length);
       randomSpecialPosition = randomPosition;
@@ -77,10 +89,10 @@ function generatePassword() {
     // Add one random special character in a random location
     if (includeUppercase) {
       // Start with the same position where we placed a special character (or zero, if user didn't ask for a special character)
-      var randomPosition = randomNumberPosition;
+      var randomPosition = randomSpecialPosition;
       // Ensure we don't pick the same position where we placed a number, or a special character (or zero, if user didn't ask for a number)
       while (randomPosition === randomSpecialPosition || randomPosition === randomNumberPosition) {
-        randomPosition = Math.floor(Math.random() * (passwordSize - 1)) + 1;
+        randomPosition = Math.floor(Math.random() * (passwordSize - 1)) + 1; // The + 1 ensures the first letter is never overwritten
       } 
       password = password.slice(0,randomPosition) + uppercaseCharacters[Math.floor(Math.random()*uppercaseCharacters.length)] + password.slice(randomPosition+1,password.length);
     }
