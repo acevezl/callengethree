@@ -82,7 +82,7 @@ This app dynamically updates HTML and CSS powered by JavaScript code.
     availableCharacters = passwordCharacters.length;
 ```
 
-9. We'll do this as many times as needed up until we reach the password length entered by the user (which is stored in _**passwordSize**_):
+9. We'll select a random index and character as many times as needed up until we reach the password length entered by the user (which is stored in _**passwordSize**_):
 ```
     for (var i=1; i<passwordSize; i++) {
       password = password + 
@@ -91,9 +91,10 @@ This app dynamically updates HTML and CSS powered by JavaScript code.
 ```
 10. At this point we have a randomly-generated* password on _**password**_ with a length of: _**passwordSize**_. 
 
- > *Math.random() **does not** generate a true random number, it is a PNRG (pseudo-random number generator). We _could_ use the **Crypto.getRandomValues()** whichi is a HRNG (hardware random number generator) which incorporates real-world dat points, but for the purposes of this specific tool a PNRG is perfectly sufficient. Not to mention that... philosophically speaking... is randomness real?
+A quick word about Math.random()
+ > *Math.random() **does not** generate a true random number, it is a PNRG (pseudo-random number generator). We _could_ use the **Crypto.getRandomValues()** which is a HRNG (hardware random number generator) and it incorporates real-world data points ([read more about this topic here](https://medium.com/@amy.cen/how-random-is-math-random-4bc195d74498) ), but for the purposes of this specific tool a PRNG is perfectly sufficient. Not to mention that... philosophically speaking... is randomness truly real?
 
-**Anyway, I've digressed here...** At this point, due to the "Random" nature of the script above, we may or may not have hit all the additional characters selected by the user. This is because there's a much larger chace to get a letter than a number or a special character (in fact, it is twice as likely that each character of the password will be a letter instead of a number o a special character). 
+**Anyway, I've digressed here...** At this point, due to the "Random" nature of our script, we may or may not have hit all the additional characters selected by the user. This is because there's a much larger chace to get a letter than a number or a special character (in fact, it is twice as likely that each character of the password will be a letter instead of a number or a special character). 
 
 In order to ensure the generated password complies with the criteria entered by the user, we'll need to add at least one character of each of the selected inputs into a random location in the string:
 
@@ -110,7 +111,7 @@ In order to ensure the generated password complies with the criteria entered by 
     }
 ```
 
-12. As you can see we're storing the position where we entered the character, so that we dont overwrite it when adding a special character. We'll repeat a very similar logic, with the addition of a _while_ cycle which will allow us to generate a random position that is not the same as the position where we entered the number in the previous step.
+12. As you can see we're storing the position where we entered the character, so that we don't overwrite it when adding a special character. We'll repeat a very similar logic, with the addition of a _while_ cycle which will allow us to generate a random position that is not the same as the position where we entered the number in the previous step.
 
 ```
     if (includeSpecial) {
@@ -129,7 +130,7 @@ In order to ensure the generated password complies with the criteria entered by 
     }
 ```
 
-13. It would be very rare if we don't have an upper case character on the generated password - however, it is certainly possible that an uppercase letter was not randomly added to the password (Although this possibility is reduced to virtually zero when a user selects a password longer than 76 character) - Note I'm saying _virtually_ because the limit only approaches zero, but never really hits it. ("The limit doesn't exist" - Mean Girls). Here is where we'll ensure at least one upper case character is added - again same logic as above, but now check that we don't place this upper case character on the position where we placed both the numeric and the special characters:
+13. It would be very rare if we don't have an upper case character on the generated password - however, it is certainly possible that an uppercase letter was not randomly added to the password (Although this possibility is reduced to virtually zero when a user selects a password longer than 76 character) - Note I'm saying _virtually_ because the limit only approaches zero, but never really hits it _("The limit doesn't exist" - Mean Girls)_. Here is where we'll ensure at least one upper case character is added - again, same logic as above, but now we check that we don't place this upper case character on the position where we placed both the numeric and the special characters:
 ```
    if (includeUppercase) {
       // Start with the same position where we placed a special character (or zero, if user didn't ask for a special character)
@@ -144,7 +145,9 @@ In order to ensure the generated password complies with the criteria entered by 
 
 # Epilogue
 
-With all these crazy edge scenarios covered, you may wonder _but like... won't we also have edge cases on which a lower case character was never randomly generated?_ Perhaps yes, but there's no acceptance criteria nor requirement on the user story that explicitly states that the password must include a lower case character. It simply states to generate the password - and ask for additional prompts for Upper, Numbers, and Special characters. So... in the words of Joe Biden: "C'mon maaaaan!".
+With all the edge scenarios covered, you may wonder _but like... won't we also have edge cases on which a lower case character was never randomly generated?_ 
+
+Perhaps yes, but there's no acceptance criteria nor requirement on the user story that explicitly states that the password must include a lower case character. It simply states to generate the password - and ask for additional prompts for Upper, Numbers, and Special characters. So... in the words of Joe Biden: "C'mon maaaaan!".
 
 
 
