@@ -9,6 +9,13 @@ Application that generates a random password based on user-selected criteria. Th
 
 This app dynamically updates HTML and CSS powered by JavaScript code. 
 
+## Table of contents
+
+* [Step One: Collecting user inputs](#Step-One:-Collecting-user-inputs)
+* [Step Two: Collecting user inputs](#Step-One:-Collecting-user-inputs)
+* [Step Three: Collecting user inputs](#Step-One:-Collecting-user-inputs)
+* [Epilogue](#Epilogue)
+
 ## Logic
 
 ### Step One: Collecting user inputs
