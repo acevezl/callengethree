@@ -11,9 +11,9 @@ This app dynamically updates HTML and CSS powered by JavaScript code.
 
 ## Table of contents
 
-* [Step One: Collecting user inputs](#tep-One:-Collecting-user-inputs)
-* [Step Two: Validating user inputs](#Step-Two:-Validating-user-inputs)
-* [Step Three: Generate the actual password](#Step-Three:-Generate-the-actual-password)
+* [Step One: Collecting user inputs](#tep-One-Collecting-user-inputs)
+* [Step Two: Validating user inputs](#Step-Two-Validating-user-inputs)
+* [Step Three: Generate the actual password](#Step-Three-Generate-the-actual-password)
 * [Epilogue](#Epilogue)
 
 ## Logic
