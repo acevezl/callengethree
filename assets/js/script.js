@@ -69,7 +69,7 @@ function generatePassword() {
     // Add one random number in a random location
     if (includeNumbers) {
       // Get a random position between 1 (second character) and password length (preserve first char as a letter)
-      var randomPosition = Math.floor(Math.random() * (passwordSize - 1)) + 1;
+      var randomPosition = Math.floor(Math.random() * (passwordSize - 1)) + 1; // The + 1 ensures the first letter is never overwritten
       password = password.slice(0,randomPosition) + numericCharacters[Math.floor(Math.random()*numericCharacters.length)] + password.slice(randomPosition+1,password.length);
       randomNumberPosition = randomPosition; // Remember where the number is, so the next if doesn't replace the number
     }
